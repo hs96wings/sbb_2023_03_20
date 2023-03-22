@@ -6,7 +6,7 @@
 <h1 th:text="${question.subject}"></h1>
 <div th:text="${question.content}"></div>
 
-<form th:action="@{|/answer/create/${question.id}|}" method="POST">
+<form th:action="@{|/answer/create/${question.id}|}" method="post">
     <!-- 여러줄 입력이 가능한 input -->
     <div>
         <span>내용</span>
