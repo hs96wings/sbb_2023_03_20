@@ -1,5 +1,9 @@
 package com.mysite.sbb;
 
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.answer.AnswerRepository;
+import com.mysite.sbb.question.Question;
+import com.mysite.sbb.question.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -187,7 +191,7 @@ class SbbApplicationTests {
 		assertEquals(2, a.getQuestion().getId());
 	}
 
-	@Transactional
+	@Transactional // 메서드가 끝날 때까지 DB와의 연결을 끊지 않음
 	@Test
 	@DisplayName("질문에 달린 답변 찾기")
 	void t011() {
