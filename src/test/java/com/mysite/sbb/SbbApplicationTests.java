@@ -1,5 +1,6 @@
 package com.mysite.sbb;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SbbApplicationTests {
 
 	@Autowired
-
 	private QuestionRepository questionRepository;
 
+	@BeforeEach // 아래 메서드는 각 테스트케이스가 실행되기 전에 실행된다
+	void beforeEach() {
+		// DELETE FROM question;
+		questionRepository.deleteAll();
 
-	@Test
-	void t001() {
+		questionRepository.clearAutoIncrement();
+
 		Question q1 = new Question();
 		q1.setSubject("sbb가 무엇인가요?");
 		q1.setContent("sbb에 대해서 알고 싶습니다");
@@ -33,6 +37,19 @@ class SbbApplicationTests {
 		q2.setContent("id는 자동으로 생성되나요?");
 		q2.setCreateDate(LocalDateTime.now());
 		this.questionRepository.save(q2);
+	}
+
+
+	@Test
+	void t001() {
+		// 질문 1개 생성
+		Question q  = new Question();
+		q.setSubject("세계에서 가장 부유한 국가가 어디인가요?");
+		q.setContent("알고 싶습니다");
+		q.setCreateDate(LocalDateTime.now());
+		this.questionRepository.save(q);
+
+		assertEquals("세계에서 가장 부유한 국가가 어디인가요?", questionRepository.findById(3).get().getSubject());
 	}
 
 	/* SQL
