@@ -18,9 +18,14 @@ class SbbApplicationTests {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+	@Autowired
+	private AnswerRepository answerRepository;
 
 	@BeforeEach // 아래 메서드는 각 테스트케이스가 실행되기 전에 실행된다
 	void beforeEach() {
+		answerRepository.deleteAll();
+		answerRepository.clearAutoIncrement();
+
 		// DELETE FROM question;
 		questionRepository.deleteAll();
 
@@ -139,5 +144,29 @@ class SbbApplicationTests {
 		Question q = oq.get();
 		questionRepository.delete(q);
 		assertEquals(1, questionRepository.count());
+	}
+
+	@Test
+	void t009() {
+		Optional<Question> oq = questionRepository.findById(2);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
+
+		/*
+		 * v1
+		 * Optional<Question> oq = questionRepository.findById(2);
+		 * Question q = oq.get();
+		 */
+
+		/*
+		 * v2
+		 * Question q = questionRepository.findById(2).get();
+		 */
+
+		Answer a = new Answer();
+		a.setContent("네 자동으로 생성됩니다.");
+		a.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
+		a.setCreateDate(LocalDateTime.now());
+		answerRepository.save(a);
 	}
 }
