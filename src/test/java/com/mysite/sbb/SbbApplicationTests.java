@@ -42,6 +42,13 @@ class SbbApplicationTests {
 		q2.setContent("id는 자동으로 생성되나요?");
 		q2.setCreateDate(LocalDateTime.now());
 		this.questionRepository.save(q2);
+
+		// 답변 1개 생성
+		Answer a1 = new Answer();
+		a1.setContent("네 자동으로 생성됩니다");
+		a1.setQuestion(q2);
+		a1.setCreateDate(LocalDateTime.now());
+		this.answerRepository.save(a1);
 	}
 
 
@@ -168,5 +175,14 @@ class SbbApplicationTests {
 		a.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
 		a.setCreateDate(LocalDateTime.now());
 		answerRepository.save(a);
+	}
+
+	@Test
+	@DisplayName("답변 조회하기")
+	void t010() {
+		Optional<Answer> oa = answerRepository.findById(1);
+		assertTrue(oa.isPresent());
+		Answer a = oa.get();
+		assertEquals(2, a.getQuestion().getId());
 	}
 }
