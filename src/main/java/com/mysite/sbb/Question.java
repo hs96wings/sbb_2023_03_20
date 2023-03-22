@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -28,6 +29,6 @@ public class Question {
     // DB는 배열이나 리스트를 저장할 수 없기에 Column으로 저장할 수 없음
     // 만들어도 되고 만들지 않아도 되지만
     // 만들게 되면 해당 객체(Question)에서 관련된 답변들을 찾을 때 유용
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private List<Answer> answerList;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE) // OneToMany에는 직접 객체 초기화
+    private List<Answer> answerList = new ArrayList<>();
 }
