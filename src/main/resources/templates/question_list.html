@@ -1,40 +1,33 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+<html layout:decorate="~{layout}">
 
-<style>
-    @font-face {
-        font-family: 'GmarketSansMedium';
-        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
+<head></head>
 
-    html > body {
-        font-family: "GmarketSansMedium";
-        text-underline-position: under;
-    }
-</style>
+<body>
+<div layout:fragment="content" class="container my-3">
 
-<div class="container my-3">
     <table class="table">
+
         <thead class="table-dark">
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성일시</th>
-            </tr>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="q, loop: ${questionList}">
-                <td>
-                    <a th:text="${loop.count}" th:href="@{|/question/detail/${q.id}|}"></a>
-                </td>
-                <td>
-                    <a th:text="${q.subject}" th:href="@{|/question/detail/${q.id}|}"></a>
-                </td>
-                <td>
-                    <a th:text="${#temporals.format(q.createDate, 'yy-mm-dd HH:mm')}"</a>
-                </td>
-            </tr>
+        <tr th:each="q, loop : ${questionList}">
+            <td>
+                <a th:text="${loop.count}" th:href="@{|/question/detail/${q.id}|}"></a>
+            </td>
+            <td>
+                <a th:text="${q.subject}" th:href="@{|/question/detail/${q.id}|}"></a>
+            </td>
+            <td th:text="${#temporals.format(q.createDate, 'yy-MM-dd HH:mm')}"></td>
+        </tr>
         </tbody>
     </table>
+
 </div>
+</body>
+
+</html>
