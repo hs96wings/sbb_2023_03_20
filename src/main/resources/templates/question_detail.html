@@ -6,6 +6,19 @@
 <h1 th:text="${question.subject}"></h1>
 <div th:text="${question.content}"></div>
 
+<!--
+${#lists.size(리스트)} => 리스트의 size() 함수와 같다
+
+<h5 th:text="${#lists.size(question.answerList)}"></h5>
+
+<h5>
+    <span th:text="${#lists.size(question.answerList)}"></span>
+    개의 답변이 있습니다
+</h5>
+-->
+
+<h5 th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다|"></h5>
+
 <form th:action="@{|/answer/create/${question.id}|}" method="post">
     <!-- 여러줄 입력이 가능한 input -->
     <div>
@@ -16,6 +29,6 @@
     <button type="submit">답변등록</button>
 </form>
 
-<div>
-    [[${answers}]]
-</div>
+<ul>
+    <li th:each="answer : ${question.answerList}" th:text="|${answer.id}번 답변: ${answer.content}|"></li>
+</ul>

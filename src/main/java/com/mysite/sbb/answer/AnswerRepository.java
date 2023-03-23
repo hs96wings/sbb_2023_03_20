@@ -13,6 +13,4 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer> {
     // nativeQuery = true여야 MySQL Query 문법 사용가능
     @Query(value = "ALTER TABLE answer AUTO_INCREMENT = 1", nativeQuery = true)
     void clearAutoIncrement();
-
-    List<Answer> findByQuestionId(Integer id);
 }

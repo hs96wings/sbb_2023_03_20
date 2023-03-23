@@ -21,8 +21,4 @@ public class AnswerService {
 
         return answer;
     }
-
-    public List<Answer> getAnswersByQuestionId(Integer id) {
-        return answerRepository.findByQuestionId(id);
-    }
 }
