@@ -2,6 +2,7 @@ package com.mysite.sbb.question;
 
 import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,23 +43,10 @@ public class QuestionController {
     }
 
     @PostMapping("/create")
-    public String questionCreate(QuestionForm questionForm) {
-        String subject = questionForm.getSubject();
-        String content = questionForm.getContent();
-
-        if (subject == null || subject.trim().length() == 0)
-            throw new RuntimeException("subject(을)를 입력해주세요");
-
-        if (subject.trim().length() > 200)
-            throw new RuntimeException("subject(을)를 200자 이하로 입력해주세요");
-
-        if (content == null || content.trim().length() == 0)
-            throw new RuntimeException("content(을)를 입력해주세요");
-
-        if (content.trim().length() > 20_000)
-            throw new RuntimeException("content(을)를 20,000자 이하로 입력해주세요");
-
-        questionService.create(subject, content);
+    // @Valid QuestionForm questionForm
+    // questionForm 값을 바인딩 할 때 유효성 체크를 해라!
+    public String questionCreate(@Valid QuestionForm questionForm) {
+        questionService.create(questionForm.getSubject(), questionForm.getContent());
 
         return "redirect:/question/list";
     }
