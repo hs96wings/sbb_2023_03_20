@@ -204,4 +204,6 @@ class SbbApplicationTests {
 		assertEquals(1, answerList.size());
 		assertEquals("네 자동으로 생성됩니다", answerList.get(0).getContent());
 	}
+
+
 }
