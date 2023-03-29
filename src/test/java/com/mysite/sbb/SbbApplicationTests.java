@@ -5,6 +5,8 @@ import com.mysite.sbb.answer.AnswerRepository;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
 import com.mysite.sbb.question.QuestionService;
+import com.mysite.sbb.user.UserRepository;
+import com.mysite.sbb.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,10 @@ class SbbApplicationTests {
 	private QuestionRepository questionRepository;
 	@Autowired
 	private AnswerRepository answerRepository;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private UserRepository userRepository;
 
 	@BeforeEach // 아래 메서드는 각 테스트케이스가 실행되기 전에 실행된다
 	void beforeEach() {
@@ -38,6 +44,13 @@ class SbbApplicationTests {
 		questionRepository.deleteAll();
 
 		questionRepository.clearAutoIncrement();
+
+		// 모든 데이터 삭제
+		userRepository.clearAutoIncrement();
+
+		// 회원 2명 생성
+		userService.create("user1", "user1@test.com", "1234");
+		userService.create("user2", "user2@test.com", "1234");
 
 		Question q1 = new Question();
 		q1.setSubject("sbb가 무엇인가요?");
